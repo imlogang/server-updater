@@ -22,5 +22,8 @@ jobs:
           name: Update Discord and Reinstall Server
           command: sudo chmod +x ./project/update.sh && ./update.sh
             
-
-
+workflows:
+  update-server:
+    jobs:
+      - update-server:
+          context: [ SERVER_UPDATER ]

@@ -2,6 +2,7 @@
 STABLE_VERSION=$(curl -s https://piston-meta.mojang.com/mc/game/version_manifest_v2.json | jq -r '.latest.release')
 
 function notify_discord() {
+    echo "Notifying Discord"
     local message="$1"
     curl -s -X POST "${DISCORD_WEBHOOK_LINK}" \
         -H "Accept: application/json" \
@@ -10,6 +11,7 @@ function notify_discord() {
 }
 
 function notify_server() {
+    echo "Notifiting sever"
     local message="$1"
     curl -s -X POST "http://minecraftdell2.logangodsey.com/api/client/servers/${serverValue}/command" \
         -H "Accept: application/json" \
@@ -36,6 +38,7 @@ function update_discord_and_server() {
 }
 
 function update_server() {
+    echo "Updating server"
     curl -s -X POST "http://minecraftdell2.logangodsey.com/api/client/servers/${serverValue}/settings/reinstall" \
         -H "Accept: application/json" \
         -H "Content-Type: application/json" \
