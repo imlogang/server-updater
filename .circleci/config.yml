@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run:
           name: Update Discord and Reinstall Server
-          command: sudo chmod +x ./project/update.sh && ./update.sh
+          command: sudo chmod +x ./update.sh && ./update.sh
             
 workflows:
   update-server:
