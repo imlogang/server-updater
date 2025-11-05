@@ -1,0 +1,26 @@
+version: 2.1
+
+executors:
+  container-runner:
+    docker:
+      - image: dockerregistry.logangodsey.com/toolbox:latest
+    resource_class: logan/container-runner
+
+parameters:
+  server-id:
+    default: ""
+    type: string
+
+jobs:
+  update-server:
+    executor: container-runner
+    environment:
+      serverValue: << pipeline.parameters.server-id >>
+    steps:
+      - checkout
+      - run:
+          name: Update Discord and Reinstall Server
+          command: sudo chmod +x ./project/update.sh && ./update.sh
+            
+
+
