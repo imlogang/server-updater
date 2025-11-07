@@ -45,7 +45,7 @@ function update_server() {
 }
 
 if [ -z "$serverValue" ]; then
-  echo "❌ Error: serverValue is not set or empty."
+  echo "Error: serverValue is not set or empty."
   circleci-agent step halt
 fi
 
@@ -53,14 +53,14 @@ echo "serverValue is: $serverValue"
 
 case "$serverValue" in
   "a6615eb7")
-    echo "🟢 Running commands for SMP Vanilla"
+    echo "Running commands for SMP Vanilla"
     STABLE_VERSION=$(curl -s https://piston-meta.mojang.com/mc/game/version_manifest_v2.json | jq -r '.latest.release')
     update_discord_and_server
     update_server
     ;;
 
   *)
-    echo "❌ Unknown serverValue: $serverValue"
+    echo "Unknown serverValue: $serverValue"
     circleci-agent step halt
     ;;
 esac
