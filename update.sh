@@ -46,7 +46,7 @@ function update_server() {
 
 if [ -z "$serverValue" ]; then
   echo "Error: serverValue is not set or empty."
-  circleci-agent step halt
+  circleci step halt
 fi
 
 echo "serverValue is: $serverValue"
@@ -61,6 +61,6 @@ case "$serverValue" in
 
   *)
     echo "Unknown serverValue: $serverValue"
-    circleci-agent step halt
+    circleci step halt
     ;;
 esac
