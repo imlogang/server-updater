@@ -44,11 +44,6 @@ function update_server() {
         -H "Authorization: Bearer ${PteroToken}"
 }
 
-if [ -z "$serverValue" ]; then
-  echo "Error: serverValue is not set or empty."
-  circleci step halt
-fi
-
 echo "serverValue is: $serverValue"
 
 case "$serverValue" in

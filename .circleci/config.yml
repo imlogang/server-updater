@@ -20,7 +20,13 @@ jobs:
       - checkout
       - run:
           name: Update Discord and Reinstall Server
-          command: sudo chmod +x ./update.sh && ./update.sh
+          command: |
+            if [ -z "$serverValue" ]; then
+              echo "Error: serverValue is not set or empty."
+              circleci step halt
+            else
+              sudo chmod +x ./update.sh && ./update.sh
+            fi
             
 workflows:
   update-server:
