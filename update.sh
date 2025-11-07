@@ -9,7 +9,7 @@ function notify_discord() {
         --data "{\"content\": \"${message}\"}"
 }
 
-function notify_server() {
+function notify_minecraft_server() {
     echo "Notifiting sever"
     local message="$1"
     curl -s -X POST "http://minecraftdell2.logangodsey.com/api/client/servers/${serverValue}/command" \
@@ -23,26 +23,39 @@ function notify_server() {
 
 function update_discord_and_server() {
     notify_discord "The server will be updated to version ${STABLE_VERSION} in 5 minutes. Please update your client!"
-    notify_server "The server will be updating in 5 minutes to ${STABLE_VERSION}!"
+    notify_minecraft_server "The server will be updating in 5 minutes to ${STABLE_VERSION}!"
     
     sleep 4m 
 
     notify_discord "The server will be updated to version ${STABLE_VERSION} in 1 minute. Please update your client!"
-    notify_server "The server will be updating in 1 minute to ${STABLE_VERSION}!"
+    notify_minecraft_server "The server will be updating in 1 minute to ${STABLE_VERSION}!"
     
     sleep 55
 
-    notify_server "The server will be updating in 5 seconds to ${STABLE_VERSION}!"
+    notify_discord "The server will be updated to version ${STABLE_VERSION} in 5 seconds. Please update your client!"
+    notify_minecraft_server "The server will be updating in 5 seconds to ${STABLE_VERSION}!"
     sleep 5
 }
 
-function update_server() {
-    echo "Updating server"
+function update_reinstall_server() {
+    echo "Updating server by reinstalling"
     curl -s -X POST "http://minecraftdell2.logangodsey.com/api/client/servers/${serverValue}/settings/reinstall" \
         -H "Accept: application/json" \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer ${PteroToken}"
 }
+
+function update_restart_server() {
+    echo "Updating server by reinstalling"
+    curl -s -X POST "http://minecraftdell2.logangodsey.com/api/client/servers/${serverValue}/power" \
+        -H "Accept: application/json" \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer ${PteroToken}" \
+        -d '{
+            "signal": "restart"
+        }'
+}
+
 
 echo "serverValue is: $serverValue"
 
@@ -51,11 +64,10 @@ case "$serverValue" in
     echo "Running commands for SMP Vanilla"
     STABLE_VERSION=$(curl -s https://piston-meta.mojang.com/mc/game/version_manifest_v2.json | jq -r '.latest.release')
     update_discord_and_server
-    update_server
+    update_reinstall_server
     ;;
 
   *)
     echo "Unknown serverValue: $serverValue"
-    circleci step halt
     ;;
 esac
