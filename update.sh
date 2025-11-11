@@ -37,6 +37,15 @@ function update_discord_and_server() {
     sleep 5
 }
 
+function update_discord_and_server() {
+    notify_discord "The server will be updated in 5 minutes. Please update your client!"
+    sleep 4m 
+    notify_discord "The server will be updated in 1 minute. Please update your client!"
+    sleep 55
+    notify_discord "The server will be updated in 5 seconds. Please update your client!"
+    sleep 5
+}
+
 function update_reinstall_server() {
     echo "Updating server by reinstalling"
     curl -s -X POST "http://minecraftdell2.logangodsey.com/api/client/servers/${serverValue}/settings/reinstall" \
@@ -62,11 +71,18 @@ echo "serverValue is: $serverValue"
 case "$serverValue" in
   "a6615eb7")
     echo "Running commands for SMP Vanilla"
+    export DISCORD_WEBHOOK_LINK="${DISCORD_WEBHOOK_LINK_MINECRAFT}"
     STABLE_VERSION=$(curl -s https://piston-meta.mojang.com/mc/game/version_manifest_v2.json | jq -r '.latest.release')
     update_discord_and_server
     update_reinstall_server
     ;;
 
+  "6b774df5")
+    echo "Running commands Satisfactory"
+    export DISCORD_WEBHOOK_LINK="${DISCORD_WEBHOOK_LINK_SATISFACTORY}"
+    update_discord_and_server
+    update_restart_server
+    ;;
   *)
     echo "Unknown serverValue: $serverValue"
     ;;
