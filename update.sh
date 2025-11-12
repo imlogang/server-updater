@@ -81,7 +81,7 @@ case "$serverValue" in
   "6b774df5")
     echo "Running commands for Satisfactory"
     export DISCORD_WEBHOOK_LINK="${DISCORD_WEBHOOK_LINK_SATISFACTORY}"
-    update_discord_and_server "Satisfactory"
+    update_discord "Satisfactory"
     update_restart_server
     ;;
   *)
