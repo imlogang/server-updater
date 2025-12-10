@@ -33,7 +33,6 @@ function update_discord_and_server() {
     notify_discord "The server will be updated to version ${STABLE_VERSION} in 5 seconds. Please update your client!"
     notify_minecraft_server "The server will be updating in 5 seconds to ${STABLE_VERSION}!"
     sleep 5
-    notify_discord "The server is now updated to version ${STABLE_VERSION}."
 }
 
 function update_discord() {
@@ -44,7 +43,6 @@ function update_discord() {
     sleep 55
     notify_discord "The server will be updated in 5 seconds. Please update your client!"
     sleep 5
-    notify_discord "The server is now updated."
 }
 
 function update_reinstall_server() {
@@ -76,6 +74,7 @@ case "$serverValue" in
     update_discord_and_server
     update_reinstall_server
     update_power_server "start"
+    notify_discord "The server is now updated to version ${STABLE_VERSION}."
     ;;
 
   "6b774df5")
@@ -83,6 +82,7 @@ case "$serverValue" in
     export DISCORD_WEBHOOK_LINK="${DISCORD_WEBHOOK_LINK_SATISFACTORY}"
     update_discord
     update_power_server "restart"
+    notify_discord "The server is now updated."
     ;;
   *)
     echo "Unknown serverValue: $serverValue"
