@@ -37,13 +37,14 @@ function update_discord_and_server() {
 }
 
 function update_discord() {
-    notify_discord "The server will be updated in 5 minutes. Please update your client!"
+    local server="$1"
+    notify_discord "The ${server} server will be updated in 5 minutes. Please update your client!"
     sleep 4m 
     notify_discord "The server will be updated in 1 minute. Please update your client!"
     sleep 55
     notify_discord "The server will be updated in 5 seconds. Please update your client!"
     sleep 5
-    notify_discord "The server is now updated"
+    notify_discord "The server is now updated."
 }
 
 function update_reinstall_server() {
