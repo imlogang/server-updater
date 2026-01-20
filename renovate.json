@@ -5,6 +5,8 @@
   "packageRules": [
     {
       "matchDatasources": ["docker"],
+      "matchPackageNames": ["dockerregistry.logangodsey.com/toolbox"],
+      "versioning": "loose",
       "automerge": true
     }
   ],
