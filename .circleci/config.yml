@@ -3,7 +3,7 @@ version: 2.1
 executors:
   container-runner:
     docker:
-      - image: dockerregistry.logangodsey.com/toolbox:122-a6c83
+      - image: dockerregistry.logangodsey.com/toolbox:124-bbb90
     resource_class: logan/container-runner
 
 parameters:
