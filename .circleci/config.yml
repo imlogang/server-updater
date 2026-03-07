@@ -3,8 +3,8 @@ version: 2.1
 executors:
   container-runner:
     docker:
-      - image: dockerregistry.logangodsey.com/toolbox:118-debb3
-    resource_class: logan/container-runner
+      - image: dockerregistry.logangodsey.com/toolbox:latest
+    resource_class: logan/small
 
 parameters:
   server-id:
