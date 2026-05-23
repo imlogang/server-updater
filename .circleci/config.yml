@@ -3,7 +3,7 @@ version: 2.1
 executors:
   container-runner:
     docker:
-      - image: dockerregistry.logangodsey.com/toolbox:latest
+      - image: cimg/go:1.26
     resource_class: logan/small
 
 parameters:
@@ -15,17 +15,17 @@ jobs:
   update-server:
     executor: container-runner
     environment:
-      serverValue: << pipeline.parameters.server-id >>
+      SERVER_ID: << pipeline.parameters.server-id >>
     steps:
       - checkout
       - run:
           name: Update Discord and Reinstall Server
           command: |
-            if [ -z "$serverValue" ]; then
-              echo "Error: serverValue is not set or empty."
+            if [ -z "$SERVER_ID" ]; then
+              echo "Error: SERVER_ID is not set or empty."
               circleci step halt
             else
-              sudo chmod +x ./update.sh && ./update.sh
+              go run ./cmd/main.go
             fi
             
 workflows:
