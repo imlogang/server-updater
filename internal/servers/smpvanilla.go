@@ -62,18 +62,16 @@ func SMPVanilla(cfg *config.Config) error {
 	}
 	fmt.Println(resp)
 
-	resp, err = httpCalls.WaitForOfflineThenStart(cfg)
+	resp, err = httpCalls.WaitForOfflineThenStartMaybe(cfg)
 	if err != nil {
 		return err
 	}
 	fmt.Println(resp)
 
-	message := fmt.Sprintf("The %s server has been updated.", cfg.ServerName)
-	resp, err = httpCalls.NotifyMinecraftServer(cfg, message)
+	err = UpdateDiscordFinal(cfg)
 	if err != nil {
 		return err
 	}
-	fmt.Println(resp)
 
 	return nil
 }

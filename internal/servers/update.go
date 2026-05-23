@@ -28,3 +28,14 @@ func UpdateServer(cfg *config.Config, time string, clock string) error {
 
 	return nil
 }
+
+func UpdateDiscordFinal(cfg *config.Config) (error) {
+	message := fmt.Sprintf("The %s server has been updated.", cfg.ServerName)
+	resp, err := httpCalls.NotifyDiscord(cfg.DiscordWebhookLink, message)
+	if err != nil {
+		return err
+	}
+	fmt.Println(resp)
+
+	return nil
+}

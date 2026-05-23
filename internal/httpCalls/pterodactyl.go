@@ -159,7 +159,7 @@ func NotifyMinecraftServer(cfg *config.Config, command string) (string, error) {
 	return "", nil
 }
 
-func getStatus(cfg *config.Config) (*string, error) {
+func GetStatus(cfg *config.Config) (*string, error) {
 	client := &http.Client{
 		Timeout: 10 * time.Second,
 	}
@@ -189,13 +189,17 @@ func getStatus(cfg *config.Config) (*string, error) {
 	return parsed.Attributes.Status, nil
 }
 
-func WaitForOfflineThenStart(cfg *config.Config) (string, error) {
+func WaitForOfflineThenStartMaybe(cfg *config.Config) (string, error) {
 	for {
-		status, err := getStatus(cfg)
+		status, err := GetStatus(cfg)
 		if err != nil {
 			return "", err
 		}
-		if status == nil {
+		if status == nil && cfg.ServerID == "a6615eb7" {
+			break
+		}
+
+		if *status == "running" {
 			break
 		}
 
@@ -206,12 +210,15 @@ func WaitForOfflineThenStart(cfg *config.Config) (string, error) {
 
 		time.Sleep(3 * time.Second)
 	}
-
-	_, err := PowerServer(cfg, "start")
-	if err != nil {
-		return "", fmt.Errorf("there was an issue starting the Minecraft server: %s", err)
+	// The Minecraft server(s) need to be 'turned on' after a reinstall, so we call PowerServer conditionally.
+	// The Satisfactory server just needs to be restarted to be updated, but want to post a final message that it's online.
+	if cfg.ServerID == "a6615eb7" {
+		_, err := PowerServer(cfg, "start")
+		if err != nil {
+			return "", fmt.Errorf("there was an issue starting the %s server: %s", cfg.ServerName, err)
+		}
 	}
-
-	resp := fmt.Sprintf("The %s server was updated to %s.", cfg.ServerName, cfg.LatestVersion)
+	
+	resp := fmt.Sprintf("The %s server is back online.", cfg.ServerName)
 	return resp, nil
 }

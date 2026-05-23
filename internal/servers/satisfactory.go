@@ -19,24 +19,31 @@ func Satisfactory(cfg *config.Config) error {
 		return err
 	}
 	fmt.Println(resp)
+	
+	resp, err = httpCalls.WaitForOfflineThenStartMaybe(cfg)
+	if err != nil {
+		return err
+	}
+	fmt.Println(resp)
+	err = UpdateDiscordFinal(cfg)
 
 	return nil
 }
 
 func updateServer(cfg *config.Config) error {
-	err := UpdateServer(cfg, "5", "minutes")
+	err := UpdateDiscord(cfg, "5", "minutes")
 	if err != nil {
 		return err
 	}
 	time.Sleep(4 * time.Minute)
 
-	err = UpdateServer(cfg, "1", "minute")
+	err = UpdateDiscord(cfg, "1", "minute")
 	if err != nil {
 		return err
 	}
 	time.Sleep(55 * time.Second)
 
-	err = UpdateServer(cfg, "1", "seconds")
+	err = UpdateDiscord(cfg, "1", "seconds")
 	if err != nil {
 		return err
 	}
