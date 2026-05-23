@@ -21,7 +21,7 @@ type PteroErrorResponse struct {
 
 type ClientServerResponse struct {
 	Attributes struct {
-		Status *string `json:"status"` // pointer is important for null
+		CurrentState *string `json:"current_state"`
 	} `json:"attributes"`
 }
 
@@ -164,7 +164,7 @@ func GetStatus(cfg *config.Config) (*string, error) {
 		Timeout: 10 * time.Second,
 	}
 
-	url := fmt.Sprintf("%s/api/client/servers/%s", cfg.PteroURL, cfg.ServerID)
+	url := fmt.Sprintf("%s/api/client/servers/%s/resources", cfg.PteroURL, cfg.ServerID)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -186,7 +186,7 @@ func GetStatus(cfg *config.Config) (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	return parsed.Attributes.Status, nil
+	return parsed.Attributes.CurrentState, nil
 }
 
 func WaitForOfflineThenStartMaybe(cfg *config.Config) (string, error) {
