@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"net/http"
 	"time"
+
+	"github.com/imlogang/server-updater/internal/config"
 )
 
-func NotifyDiscord(discordLink string, message string) (string, error) {
+func NotifyDiscord(cfg *config.Config, message string) (string, error) {
 	body := map[string]string{
 		"content": message,
 	}
@@ -20,7 +22,7 @@ func NotifyDiscord(discordLink string, message string) (string, error) {
 	client := &http.Client{
 		Timeout: 10 * time.Second,
 	}
-	req, err := http.NewRequest("POST", discordLink, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", cfg.DiscordWebhookLink, bytes.NewBuffer(jsonStr))
 	if err != nil {
 		return "", err
 	}

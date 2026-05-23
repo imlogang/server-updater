@@ -9,7 +9,7 @@ import (
 
 func UpdateDiscord(cfg *config.Config, time string, clock string) error {
 	message := fmt.Sprintf("The server will be updated in %s clock to %s. Please update your client!", time, clock)
-	resp, err := httpCalls.NotifyDiscord(cfg.DiscordWebhookLink, message)
+	resp, err := httpCalls.NotifyDiscord(cfg, message)
 	if err != nil {
 		return err
 	}
@@ -20,7 +20,7 @@ func UpdateDiscord(cfg *config.Config, time string, clock string) error {
 
 func UpdateServer(cfg *config.Config, time string, clock string) error {
 	message := fmt.Sprintf("The server will be updated in %s seconds to %s. Please update your client!", time, clock)
-	resp, err := httpCalls.NotifyDiscord(cfg.DiscordWebhookLink, message)
+	resp, err := httpCalls.NotifyMinecraftServer(cfg, message)
 	if err != nil {
 		return err
 	}
@@ -31,7 +31,7 @@ func UpdateServer(cfg *config.Config, time string, clock string) error {
 
 func UpdateDiscordFinal(cfg *config.Config) (error) {
 	message := fmt.Sprintf("The %s server has been updated.", cfg.ServerName)
-	resp, err := httpCalls.NotifyDiscord(cfg.DiscordWebhookLink, message)
+	resp, err := httpCalls.NotifyDiscord(cfg, message)
 	if err != nil {
 		return err
 	}
