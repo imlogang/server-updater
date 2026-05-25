@@ -26,7 +26,9 @@ func Satisfactory(cfg *config.Config) error {
 	}
 	fmt.Println(resp)
 	err = UpdateDiscordFinal(cfg)
-
+ if err != nil {
+	 return err
+	}
 	return nil
 }
 
