@@ -3,7 +3,7 @@ version: 2.1
 executors:
   container-runner:
     docker:
-      - image: cimg/go:1.26
+      - image: cimg/go:1.27
     resource_class: logan/small
 
 parameters:
