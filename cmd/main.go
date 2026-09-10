@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -23,6 +24,7 @@ func main() {
 	switch cfg.ServerID {
 	// SMP Vanilla
 	case "a6615eb7":
+		fmt.Println("Updating the SMP Vanilla Server")
 		cfg.DiscordWebhookLink = lookupWebhook("DISCORD_WEBHOOK_LINK_MINECRAFT")
 		cfg.ServerName = "SMP Vanilla"
 
@@ -32,6 +34,7 @@ func main() {
 		}
 	//satisfactory
 	case "6b774df5":
+		fmt.Println("Updating the Satisfactory Server")
 		cfg.DiscordWebhookLink = lookupWebhook("DISCORD_WEBHOOK_LINK_SATISFACTORY")
 		cfg.ServerName = "Satisfactory"
 
