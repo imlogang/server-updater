@@ -7,8 +7,19 @@ import (
 	"github.com/imlogang/server-updater/internal/httpCalls"
 )
 
-func UpdateDiscord(cfg *config.Config, time string, clock string, latestVersion String) error {
-	message := fmt.Sprintf("The server will be updated in %s %s to %s. Please update your client!", time, clock)
+func UpdateDiscordMinecraft(cfg *config.Config, time string, clock string, latestVersion string) error {
+	message := fmt.Sprintf("The server will be updated in %s %s to %s. Please update your client!", time, clock, latestVersion)
+	resp, err := httpCalls.NotifyDiscord(cfg, message)
+	if err != nil {
+		return err
+	}
+	fmt.Println(resp)
+
+	return nil
+}
+
+func UpdateDiscord(cfg *config.Config, time string, clock string) error {
+	message := fmt.Sprintf("The server will be updated in %s %s. Please update your client!", time, clock)
 	resp, err := httpCalls.NotifyDiscord(cfg, message)
 	if err != nil {
 		return err

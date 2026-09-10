@@ -77,7 +77,7 @@ func SMPVanilla(cfg *config.Config) error {
 }
 
 func updateServerandDiscord(cfg *config.Config, latestVersion string) error {
-	err := UpdateDiscord(cfg, "5", "minutes", latestVersion)
+	err := UpdateDiscordMinecraft(cfg, "5", "minutes", latestVersion)
 	if err != nil {
 		return err
 	}
@@ -87,7 +87,7 @@ func updateServerandDiscord(cfg *config.Config, latestVersion string) error {
 	}
 	time.Sleep(4 * time.Minute)
 
-	err = UpdateDiscord(cfg, "1", "minute", latestVersion)
+	err = UpdateDiscordMinecraft(cfg, "1", "minute", latestVersion)
 	if err != nil {
 		return err
 	}
@@ -97,7 +97,7 @@ func updateServerandDiscord(cfg *config.Config, latestVersion string) error {
 	}
 	time.Sleep(55 * time.Second)
 
-	err = UpdateDiscord(cfg, "5", "seconds", latestVersion)
+	err = UpdateDiscordMinecraft(cfg, "5", "seconds", latestVersion)
 	if err != nil {
 		return err
 	}
